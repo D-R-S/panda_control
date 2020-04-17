@@ -15,7 +15,7 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 
 **TODO** CLEAN UP CODE (FRANKA_STACK HAS REDUNDANCIES, REDUCE FRANKA_PYTHON TO KEYBORD CONTROL), WRITE README AND LICENCE FOR FRANKA_PYTHON, TEST, UPLOAD
 
-# Major Changes
+## Major Changes
 ### franka_ros (catkin_ws)
 * `franka_python` a new package to control the robot via python scripts (using `moveIt!`).
 * `realsense-2.0.3` for the realsense depth camera (on the BGU robot and insilico).
@@ -33,7 +33,7 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 * ros-kinetic-gazebo-ros-pkgs, ros-kinetic-gazebo-ros-control, ros-kinetic-ros-control, ros-kinetic-moveit ros-kinetic-catkin, ros-kinetic*controller*
 * python 2.7 , rospy, empy, numpy, pyassimp3.3
 
-#### Additional (for machinevision with realsense)
+### Additional (for machinevision with realsense)
 * cuda, cuDNN, TensorFlow, Keras
 * realsense packages [ROS-Wrapper](https://github.com/IntelRealSense/realsense-ros/releases),[moreInfo](https://github.com/IntelRealSense/realsense-ros/issues/395)
 * ros_kinetic-realsense-camera (after installing the realsense ros wrapper)
@@ -51,12 +51,6 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 * Terminal2 (Python Control Node): `roslaunch franka_control franka_keyboard_control.launch`
 
 
-**Based on the works of**
-* Marcus Ebner von Eschenbach (sven-hoek) [git](https://github.com/sven-hoek/franka_ros) 
-* Yuval Litvak [ref](https://arxiv.org/abs/1809.10699)
-* Erdal Pekel [git](https://github.com/erdalpekel)
-* Marko Križmančić [git](https://github.com/mkrizmancic) 
-
 ## License
 
 All packages of `franka_stack` (formerly `franka_ros`) are licensed under the [Apache 2.0 license][apache-2.0].
@@ -66,3 +60,8 @@ All packages of `franka_stack` (formerly `franka_ros`) are licensed under the [A
 [travis-status]: https://travis-ci.org/frankaemika/franka_ros.svg?branch=kinetic-devel
 [travis]: https://travis-ci.org/frankaemika/franka_ros
 
+**Based on the works of**
+* Marcus Ebner von Eschenbach (sven-hoek) [git](https://github.com/sven-hoek/franka_ros) 
+* Yuval Litvak [ref](https://arxiv.org/abs/1809.10699)
+* Erdal Pekel [git](https://github.com/erdalpekel)
+* Marko Križmančić [git](https://github.com/mkrizmancic) 
