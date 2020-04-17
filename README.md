@@ -22,7 +22,7 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 * Changed gazebo materials to improve visualisation.
 * Real sense depth camera & adaptor link (added to gazebo - "as is" in the real panda).
 * Added `panda_moveit` - IK solver KDL or tracIK (recommended).
-* A position control interface for the panda arm and a effort control interface for the hand (see ´franka_control` and `panda_moveit`).
+* A position control interface for the panda arm and a effort control interface for the hand (see `franka_control` and `panda_moveit`).
 * 
 
 
