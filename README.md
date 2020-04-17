@@ -41,7 +41,7 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 * clone
 * catkin_make
 * chmod +x -R ~/franka_python
-* Note: if using pycharm (for it to recognice ROS pkgs: sudo chown -R <ur_usr> /usr/share/applications)
+* Note: if using pycharm (for it to recognize ROS pkgs: sudo chown -R <ur_usr> /usr/share/applications)
   
 
 ## Execution
