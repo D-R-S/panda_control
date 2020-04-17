@@ -18,25 +18,24 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 * `franka_python` a new package to control the robot via python scripts (using `moveIt!`).
 * `realsense-2.0.3` for the realsense depth camera (on the BGU robot and insilico).
 ### franka_stack
-* Improved inertia values and masses for the panda (based on [ref]).
+* Improved inertia [ref](https://github.com/mkrizmancic) and masses [ref](https://github.com/erdalpekel) for the panda.
 * Changed gazebo materials to improve visualisation.
 * Real sense depth camera & adaptor link (added to gazebo - "as is" in the real panda).
 * Added `panda_moveit` - IK solver KDL or tracIK (recommended).
 * A position control interface for the panda arm and a effort control interface for the hand (see `franka_control` and `panda_moveit`).
-* 
 
 
 
 ## Execution
-To run the simulation, launch `franka_gazebo franka_gazebo.launch`.
-To run the keyboard control, launch `franka_control franka_keyboard_control.launch`.
+>Terminal1 (ROS, Gazebo, moveIT!): `roslaunch franka_gazebo franka_gazebo.launch`
+>Terminal2 (Python Control Node): `roslaunch franka_control franka_keyboard_control.launch`
 
 
 **Based on the works of**
 * Marcus Ebner von Eschenbach (sven-hoek) [git](https://github.com/sven-hoek/franka_ros) 
 * Yuval Litvak [ref](https://arxiv.org/abs/1809.10699)
 * Erdal Pekel [git](https://github.com/erdalpekel)
-
+* Marko Križmančić [git](https://github.com/mkrizmancic) 
 
 ## License
 
