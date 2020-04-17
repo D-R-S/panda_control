@@ -21,14 +21,32 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 * Improved inertia [ref](https://github.com/mkrizmancic) and masses [ref](https://github.com/erdalpekel) for the panda.
 * Changed gazebo materials to improve visualisation.
 * Real sense depth camera & adaptor link (added to gazebo - "as is" in the real panda).
-* Added `panda_moveit` - IK solver KDL or tracIK (recommended).
+* Added package `panda_moveit` - IK solver options: KDL or tracIK (recommended).
 * A position control interface for the panda arm and a effort control interface for the hand (see `franka_control` and `panda_moveit`).
 
+## Dependencies (tested on, may work with later)
+* ubuntu 16.04
+* Ros Kinetic
+* gazebo7/9
+* ros-kinetic-gazebo-ros-pkgs, ros-kinetic-gazebo-ros-control, ros-kinetic-ros-control, ros-kinetic-moveit ros-kinetic-catkin, ros-kinetic*controller*
+* python 2.7 , rospy, empy, numpy, pyassimp3.3
 
+#### Additional (for machinevision with realsense)
+* cuda, cuDNN, TensorFlow, Keras
+* realsense packages [ROS-Wrapper](https://github.com/IntelRealSense/realsense-ros/releases),[moreInfo](https://github.com/IntelRealSense/realsense-ros/issues/395)
+* ros_kinetic-realsense-camera (after installing the realsense ros wrapper)
+
+
+## Installation
+* clone
+* catkin_make
+* chmod +x -R ~/franka_python
+* Note: if using pycharm (for it to recognice ROS pkgs: sudo chown -R <ur_usr> /usr/share/applications)
+  
 
 ## Execution
->Terminal1 (ROS, Gazebo, moveIT!): `roslaunch franka_gazebo franka_gazebo.launch`
->Terminal2 (Python Control Node): `roslaunch franka_control franka_keyboard_control.launch`
+* Terminal1 (ROS, Gazebo, moveIT!): `roslaunch franka_gazebo franka_gazebo.launch`
+* Terminal2 (Python Control Node): `roslaunch franka_control franka_keyboard_control.launch`
 
 
 **Based on the works of**
