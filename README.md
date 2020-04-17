@@ -9,8 +9,8 @@ Initially cloned from https://github.com/sven-hoek/franka_ros
 
 **UNDER_CONSTRUCTION**
 
-This repository is based on `"sven-hoek's"` expansion of `franka_ros*` by the package `franka_gazebo`.
-It contains a gazebo implementation of the panda robot at BGU including hand and depth camera as well as a control interface to python via moveIt.
+This repository is based on `"sven-hoek's"` expansion of `franka_ros` by the package `franka_gazebo`.
+It contains a gazebo implementation of the panda robot at BGU including hand and depth camera as well as a control interface to python via moveIt. See section Major Changes for more details
 
 **ATTENTION**  A large part of the structure in of this repository changed to fit into the framework of our task.`franka_ros` is now `franka_stack`. Added `franka_python` and `realsense-2.0.3` to the catkin workspace (`franka_ros`).
 
