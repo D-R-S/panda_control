@@ -33,8 +33,9 @@ To run the keyboard control, launch `franka_control franka_keyboard_control.laun
 
 
 **Based on the works of**
-* Marcus Ebner von Eschenbach `sven-hoek` [git]: https://github.com/sven-hoek/franka_ros 
-* Yuval Litvak [mail]: https://arxiv.org/abs/1809.10699
+* Marcus Ebner von Eschenbach (sven-hoek) [git](https://github.com/sven-hoek/franka_ros) 
+* Yuval Litvak [ref](https://arxiv.org/abs/1809.10699)
+* Erdal Pekel [git](https://github.com/erdalpekel)
 
 
 ## License
