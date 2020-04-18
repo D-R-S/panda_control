@@ -13,7 +13,7 @@ This repository is based on ["sven-hoek's"](https://github.com/sven-hoek/franka_
 
 **ATTENTION**  A large part of the structure of the original repository changed to fit into the framework of our task.`franka_ros` is now `franka_stack`.
 
-**TODO** CLEAN UP CODE (FRANKA_STACK HAS REDUNDANCIES, REDUCE FRANKA_PYTHON TO KEYBORD CONTROL), WRITE README AND LICENCE FOR FRANKA_PYTHON, TEST, UPLOAD
+**TODO** GO BACK TO FRANKA_ROS AND RENAME THE CATKIN WORKSPACE OR PUT FRANKA_PYTHON INTO FRANKA_ROS, CLEAN UP CODE (FRANKA_STACK HAS REDUNDANCIES, REDUCE FRANKA_PYTHON TO KEYBORD CONTROL), WRITE README AND LICENCE FOR FRANKA_PYTHON, TEST, UPLOAD
 
 ## Major Changes
 ### franka_ros (catkin_ws)
