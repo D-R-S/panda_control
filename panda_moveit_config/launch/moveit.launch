@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <!-- By default, we do not start a database (it can be large) -->
+    <arg name="db" default="false" />
+    
+    <!-- hardware_interface to use : PositionJointInterface, EffortJointInterface, VelocityJointInterface. -->
+    <arg name="hardware_interface" default="PositionJointInterface"/>
+    <!-- name of the panda to use, useful in case of multiple robots. Every robot is gonna have its nodees/topics under a namespace with the same name. -->
+    <arg name="robot_name" default="panda"/>    
+    <!-- By default, we are not in debug mode -->
+    <arg name="debug" default="false" />
+
+    <!--Put in a namespace to allow many instances to run-->
+    <group>
+        <!-- Load move_group -->
+        <include file="$(find panda_moveit_config)/launch/move_group.launch">
+            <arg name="publish_monitored_planning_scene" value="true" />
+            <arg name="fake_execution" value="false"/>
+            <!--arg name="hardware_interface" value="$(arg hardware_interface)"/-->
+            <!--arg name="robot_name" value="$(arg robot_name)"/-->
+        </include>
+
+        <!-- If database loading was enabled, start mongodb as well -->
+        <include file="$(find panda_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)"/>
+    </group>
+    
+    
+    
+</launch>

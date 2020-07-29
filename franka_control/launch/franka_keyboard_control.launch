@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Launch the keyboard publisher node -->
+    <node pkg="franka_python" name="keyboard_publisher" type="keyboard_publisher.py" output="screen" args="joint_states:=/joint_states"> 
+    </node>
+
+    <!-- Launch the keyboard subscriber node -->
+    <node pkg="franka_python" name="keyboard_subscriber" type="keyboard_subscriber.py" output="screen" args="joint_states:=/joint_states"> 
+    </node>
+
+</launch>

@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<launch>
+  <!-- <arg name="robot_ip" /> -->
+
+  <arg name="hardware_interface" default="PositionJointInterface" />
+  <arg name="robot_name" default="panda" />
+  <arg name="trajectory" default="true"/> <!-- true by default -->
+
+
+  <!-- Loads the Gazebo world. -->
+  <include file="$(find franka_gazebo)/launch/franka_world.launch">
+      <arg name="hardware_interface" value="$(arg hardware_interface)" />
+      <arg name="robot_name" value="$(arg robot_name)" />
+  </include>
+
+  <!-- Spawn controllers - it uses a JointTrajectoryController (added from iiwa) -->
+  <group ns="/" if="$(arg trajectory)">  <!-- manually changed ns to "/" (same like in robot description files -->
+
+      <include file="$(find franka_control)/launch/franka_control.launch">
+          <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_trajectory_controller EffortJointInterface_trajectory_gripper franka_state_controller" />
+          <arg name="robot_name" value="$(arg robot_name)" />
+      </include>     
+  </group>
+
+  <!-- Start script that provides the action interface needed by moveIt to control the gripper -->
+  <arg name="load_gripper" default="true" />
+  <node name="franka_gripper_gz" pkg="franka_gazebo" type="gripper_action_server.py" respawn="false" output="screen" args="" if="$(arg load_gripper)"/>
+  <!-- end of gripper -->
+
+
+
+  <include file="$(find panda_moveit_config)/launch/moveit.launch"/>
+
+
+<!-- old stuff which was in orig franka_gazebo 
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <rosparam command="load" file="$(find franka_control)/config/default_controllers.yaml" />
+  <rosparam command="load" file="$(find franka_gazebo)/config/gazebo_controllers.yaml" />
+
+  <node name="sim_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="franka_sim_state_controller franka_left_finger_controller franka_right_finger_controller" if="$(arg load_gripper)"/>
+
+  <node name="sim_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="franka_sim_state_controller" unless="$(arg load_gripper)"/>
+
+
+  <node name="joint_state_desired_publisher" pkg="topic_tools" type="relay" args="joint_states joint_states_desired" />
+
+-->
+
+</launch>
