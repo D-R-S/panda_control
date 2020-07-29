@@ -1,0 +1,497 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+  <xacro:macro name="panda_arm" params="arm_id:='panda' description_pkg:='franka_description' connected_to:='' xyz:='0 0 0' rpy:='0 0 0' hw_interface:='PositionJointInterface'">
+    <xacro:unless value="${not connected_to}">
+      <joint name="${arm_id}_joint_${connected_to}" type="fixed">
+        <parent link="${connected_to}"/>
+        <child link="${arm_id}_link0"/>
+        <origin rpy="${rpy}" xyz="${xyz}"/>
+      </joint>
+    </xacro:unless>
+
+<!-- LINK 0 -->
+    <link name="${arm_id}_link0">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link0.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link0.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="2.92" />      
+        <origin xyz="-0.025566 -2.88e-05 0.057332" rpy="0 0 0" />
+        <inertia ixx="0.00782229414331" ixy="-1.56191622996e-05" ixz="-0.00126005738123" iyy="0.0109027971813" iyz="1.08233858202e-05" izz="0.0102355503949" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link0">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+<!-- LINK 1 -->
+    <link name="${arm_id}_link1">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link1.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link1.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="2.74" />
+        <origin xyz="0 -0.0324958 -0.0675818" rpy="0 0 0" />
+        <inertia ixx="0.0180416958283" ixy="0.0" ixz="0.0" iyy="0.0159136071891" iyz="0.0046758424612" izz="0.00620690827127" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link1">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint1" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="0 0 0" xyz="0 0 0.333"/>
+      <parent link="${arm_id}_link0"/>
+      <child link="${arm_id}_link1"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-2.8973" upper="2.8973" velocity="2.1750"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission1">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint1">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor1">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 2 -->
+    <link name="${arm_id}_link2">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link2.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link2.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="2.74" />
+        <origin xyz="0 -0.06861 0.0322285" rpy="0 0 0" />
+        <inertia ixx="0.0182856182281" ixy="0.0" ixz="0.0" iyy="0.00621358421175" iyz="-0.00472844221905" izz="0.0161514346309" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link2">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint2" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-1.7628" soft_upper_limit="1.7628"/>
+      <origin rpy="${-pi/2} 0 0" xyz="0 0 0"/>
+      <parent link="${arm_id}_link1"/>
+      <child link="${arm_id}_link2"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-1.7628" upper="1.7628" velocity="2.1750"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission2">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint2">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor2">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 3 -->
+    <link name="${arm_id}_link3">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link3.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link3.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="2.38" />
+        <origin xyz="0.0469893 0.0316374 -0.031704" rpy="0 0 0" />
+        <inertia ixx="0.00771376630908" ixy="-0.00248490625138" ixz="-0.00332147581033" iyy="0.00989108008727" iyz="-0.00217796151484" izz="0.00811723558464" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link3">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint3" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="${pi/2} 0 0" xyz="0 -0.316 0"/>
+      <parent link="${arm_id}_link2"/>
+      <child link="${arm_id}_link3"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-2.8973" upper="2.8973" velocity="2.1750"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission3">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint3">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor3">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 4 -->
+    <link name="${arm_id}_link4">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link4.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link4.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="2.38" />
+        <origin xyz="-0.0360446 0.0336853 0.031882" rpy="0 0 0" />
+        <inertia ixx="0.00799663881132" ixy="0.00347095570217" ixz="-0.00241222942995" iyy="0.00825390705278" iyz="0.00235774044121" izz="0.0102515004345" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link4">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint4" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-3.0718" soft_upper_limit="-0.0698"/>
+      <origin rpy="${pi/2} 0 0" xyz="0.0825 0 0"/>
+      <parent link="${arm_id}_link3"/>
+      <child link="${arm_id}_link4"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="87" lower="-3.0718" upper="-0.0698" velocity="2.1750"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission4">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint4">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor4">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 5 -->
+    <link name="${arm_id}_link5">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link5.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link5.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="2.74" />
+        <origin xyz="0 0.0610427 -0.104176" rpy="0 0 0" />
+        <inertia ixx="0.030371374513" ixy="6.50283587108e-07" ixz="-1.05129179916e-05" iyy="0.0288752887402" iyz="-0.00775653445787" izz="0.00444134056164" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link5">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint5" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="${-pi/2} 0 0" xyz="-0.0825 0.384 0"/>
+      <parent link="${arm_id}_link4"/>
+      <child link="${arm_id}_link5"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="12" lower="-2.8973" upper="2.8973" velocity="2.6100"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission5">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint5">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor5">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 6 -->
+    <link name="${arm_id}_link6">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link6.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0.0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link6.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="1.55" />
+        <origin xyz="0.0510509 0.009108 0.0106343" rpy="0 0 0" />
+        <inertia ixx="0.00303336450376" ixy="-0.000437276865508" ixz="0.000629257294877" iyy="0.00404479911567" iyz="0.000130472021025" izz="0.00558234286039" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link6">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint6" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-0.0175" soft_upper_limit="3.7525"/>
+      <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
+      <parent link="${arm_id}_link5"/>
+      <child link="${arm_id}_link6"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="12" lower="-0.0175" upper="3.7525" velocity="2.6100"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission6">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint6">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor6">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 7 -->
+    <link name="${arm_id}_link7">
+      <visual>
+        <origin xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/visual/link7.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/franka/collision/link7.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <!-- ATTENTION! Copied from git of mkrizmancic -->
+        <mass value="0.54" />
+        <origin xyz="0.0109695 0.0107965 0.0650411" rpy="0 0 0" />
+        <inertia ixx="0.000888868887021" ixy="-0.00012239074652" ixz="3.98699829666e-05" iyy="0.000888001373233" iyz="-9.33825115206e-05" izz="0.0007176834609" />
+      </inertial>
+    </link>
+
+    <gazebo reference="${arm_id}_link7">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+    <joint name="${arm_id}_joint7" type="revolute">
+      <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973"/>
+      <origin rpy="${pi/2} 0 0" xyz="0.088 0 0"/>
+      <parent link="${arm_id}_link6"/>
+      <child link="${arm_id}_link7"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="12" lower="-2.8973" upper="2.8973" velocity="2.6100"/>
+      <dynamics damping="0.5" friction="1.0"/>
+    </joint>
+
+    <transmission name="${arm_id}_transmission7">
+      <robotNamespace>/</robotNamespace>
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${arm_id}_joint7">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${arm_id}_motor7">
+	    <hardwareInterface>hardware_interface/${hw_interface}</hardwareInterface>
+	    <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!-- LINK 8 (ROBOT FLANGE) -->
+    <link name="${arm_id}_link8"/>
+    <joint name="${arm_id}_joint8" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 ${0.107}"/> <!-- z=0.107 IS THE ROBOT FLANGE. add +0.1025 to be the gripper TCP (if hand is connected to link7 instead of 8) -->
+      <parent link="${arm_id}_link7"/>
+      <child link="${arm_id}_link8"/>
+      <axis xyz="0 0 0"/>
+    </joint>
+ 
+    <gazebo reference="${arm_id}_link8">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+<!-- LINK 9 (EEF Link for CTRL) now: rotated s.t. same in IIWA (due to image coordinate system)-->
+    <link name="${arm_id}_link9"/>
+    <joint name="${arm_id}_joint9" type="fixed">
+      <origin rpy="0 0 0.78539816339" xyz="0 0 ${0.1025}"/> 
+      <parent link="${arm_id}_link8"/>
+      <child link="${arm_id}_link9"/>
+      <axis xyz="0 0 0"/>
+    </joint>
+
+    <gazebo reference="${arm_id}_link9">
+      <material>Gazebo/White</material>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+      <mu1>0.8</mu1>
+      <mu2>0.8</mu2>
+      <maxVel>0.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+
+<!-- LINK 10 (the camera position) just 4 checks -->
+    <link name="${arm_id}_link10"/>
+    <joint name="${arm_id}_joint10" type="fixed">
+      <origin rpy="0 ${-pi/2} ${pi/2}" xyz="${-0.0192} ${-0.0665}  ${-0.043}"/> 
+      <parent link="${arm_id}_link9"/>
+      <child link="${arm_id}_link10"/>
+      <axis xyz="0 0 0"/>
+    </joint>
+
+<!-- LINK 11 (the camera reference point - should be at lense) just 4 checks -->
+    <link name="${arm_id}_link11"/>
+    <joint name="${arm_id}_joint11" type="fixed">
+      <!--<origin rpy="0 0 0" xyz="${-0.02176} ${-0.0109} 0"/> --> <!-- original -->
+      <!-- <origin rpy="0 0 0" xyz="0 ${-0.0109} ${-0.02176}"/> --> <!-- by logic "where is the lense" -->
+      <origin rpy="0 0 0" xyz="0 ${-0.02176} ${0.0109}"/> <!-- by logic "short range pic of base_plate looks good" -->
+      <parent link="${arm_id}_link10"/>
+      <child link="${arm_id}_link11"/>
+      <axis xyz="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+</robot>
